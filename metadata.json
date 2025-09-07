@@ -1,0 +1,5 @@
+{
+  "name": "Academic Paper Writer",
+  "description": "An AI-powered assistant to help students write academic papers for Irish universities, with support for IEEE and Harvard referencing styles.",
+  "requestFramePermissions": []
+}
