@@ -1,22 +1,49 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { ReferencingStyle } from './types';
 import { generatePaper } from './services/geminiService';
 import Header from './components/Header';
 import PaperEditor from './components/PaperEditor';
 import OutputDisplay from './components/OutputDisplay';
 
+const STORAGE_KEY = 'academicPaperWriterState';
+
 const App: React.FC = () => {
   const [style, setStyle] = useState<ReferencingStyle>(ReferencingStyle.Harvard);
-  const [prompt, setPrompt] = useState<string>('');
   const [draft, setDraft] = useState<string>('');
   const [output, setOutput] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Load state from local storage on initial render
+  useEffect(() => {
+    try {
+      const savedStateJSON = localStorage.getItem(STORAGE_KEY);
+      if (savedStateJSON) {
+        const savedState = JSON.parse(savedStateJSON);
+        if (savedState.style) setStyle(savedState.style);
+        if (savedState.draft) setDraft(savedState.draft);
+        if (savedState.output) setOutput(savedState.output);
+      }
+    } catch (e) {
+      console.error("Failed to load state from local storage:", e);
+    }
+  }, []);
+
+  // Save state to local storage whenever it changes
+  useEffect(() => {
+    try {
+      const stateToSave = JSON.stringify({ style, draft, output });
+      localStorage.setItem(STORAGE_KEY, stateToSave);
+    } catch (e) {
+      console.error("Failed to save state to local storage:", e);
+    }
+  }, [style, draft, output]);
+
+
   const handleGenerate = useCallback(async () => {
-    if (!prompt.trim()) {
-      setError('Please provide a topic or instructions for the AI.');
+    if (!draft.trim()) {
+      setError('Please provide your text in the editor to get feedback.');
       return;
     }
     setIsLoading(true);
@@ -24,7 +51,7 @@ const App: React.FC = () => {
     setOutput('');
 
     try {
-      const result = await generatePaper(prompt, draft, style);
+      const result = await generatePaper(draft, style);
       setOutput(result);
     } catch (e: unknown) {
       if (e instanceof Error) {
@@ -35,7 +62,7 @@ const App: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [prompt, draft, style]);
+  }, [draft, style]);
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 font-sans">
@@ -45,8 +72,6 @@ const App: React.FC = () => {
           <PaperEditor
             style={style}
             setStyle={setStyle}
-            prompt={prompt}
-            setPrompt={setPrompt}
             draft={draft}
             setDraft={setDraft}
             onGenerate={handleGenerate}

@@ -5,8 +5,6 @@ import { ReferencingStyle } from '../types';
 interface PaperEditorProps {
   style: ReferencingStyle;
   setStyle: (style: ReferencingStyle) => void;
-  prompt: string;
-  setPrompt: (prompt: string) => void;
   draft: string;
   setDraft: (draft: string) => void;
   onGenerate: () => void;
@@ -35,8 +33,6 @@ const StyleButton: React.FC<{
 const PaperEditor: React.FC<PaperEditorProps> = ({
   style,
   setStyle,
-  prompt,
-  setPrompt,
   draft,
   setDraft,
   onGenerate,
@@ -46,12 +42,12 @@ const PaperEditor: React.FC<PaperEditorProps> = ({
   return (
     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 flex flex-col space-y-6">
       <h2 className="text-xl font-bold text-gray-900 border-b pb-3">
-        Writing Assistant
+        Writing Checker
       </h2>
       
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          Referencing Style
+          Referencing Style for Citation Check
         </label>
         <div className="flex rounded-md overflow-hidden">
           <StyleButton
@@ -66,32 +62,18 @@ const PaperEditor: React.FC<PaperEditorProps> = ({
           />
         </div>
       </div>
-
-      <div>
-        <label htmlFor="prompt" className="block text-sm font-medium text-gray-700 mb-2">
-          Topic / Instructions
-        </label>
-        <input
-          type="text"
-          id="prompt"
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="e.g., 'Write an introduction about the impact of AI on modern literature'"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition"
-        />
-      </div>
       
       <div>
         <label htmlFor="draft" className="block text-sm font-medium text-gray-700 mb-2">
-          Your Draft (Optional)
+          Your Paper/Article
         </label>
         <textarea
           id="draft"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
-          rows={12}
-          placeholder="Paste your existing work here, or leave blank to start from scratch..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition"
+          rows={16}
+          placeholder="Paste your text here. The AI will analyze it based on NCI's academic writing guidelines and provide feedback."
+          className="w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500 transition bg-gray-800 text-white placeholder:text-gray-400"
         />
       </div>
 
@@ -108,10 +90,10 @@ const PaperEditor: React.FC<PaperEditorProps> = ({
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            Generating...
+            Analyzing your text...
           </>
         ) : (
-          'Generate Paper'
+          'Analyze My Writing'
         )}
       </button>
     </div>

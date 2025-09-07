@@ -1,5 +1,5 @@
 {
-  "name": "Academic Paper Writer",
-  "description": "An AI-powered assistant to help students write academic papers for Irish universities, with support for IEEE and Harvard referencing styles.",
+  "name": "NCI Academic Writing Assistant",
+  "description": "An AI-powered assistant to help students improve their academic writing based on the official guidelines of the National College of Ireland (NCI). It provides feedback on clarity, conciseness, formality, and supports IEEE and Harvard referencing.",
   "requestFramePermissions": []
 }
