@@ -1,0 +1,13 @@
+{
+  "name": "NCI Academic Writing Assistant",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:18-bullseye",
+  "portsAttributes": {
+    "3000": {
+      "label": "Application",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "forwardPorts": [3000],
+  "postCreateCommand": "npm install",
+  "postStartCommand": "npm start"
+}

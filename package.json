@@ -1,23 +1,14 @@
 {
-  "name": "nci-academic-writing-assistant",
-  "private": true,
-  "version": "0.0.0",
+  "name": "nci-academic-writer-server",
+  "version": "1.0.0",
+  "description": "Server for the NCI Academic Writing Assistant.",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node server.js"
   },
   "dependencies": {
-    "react": "^19.1.1",
     "@google/genai": "^1.17.0",
-    "react-dom": "^19.1.1",
-    "jspdf": "2.5.1",
-    "docx": "8.5.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.14.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "express": "^4.19.2"
   }
 }
