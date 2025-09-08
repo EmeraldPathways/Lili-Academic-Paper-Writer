@@ -1,14 +1,13 @@
 {
-  "name": "nci-academic-writer-server",
+  "name": "nci-academic-writer",
   "version": "1.0.0",
-  "description": "Server for the NCI Academic Writing Assistant.",
-  "main": "server.js",
+  "description": "An AI-powered assistant to help students improve their academic writing. Runs entirely in the browser and is ready for static hosting.",
+  "private": true,
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "serve -l 3000"
   },
-  "dependencies": {
-    "@google/genai": "^1.17.0",
-    "express": "^4.19.2"
+  "devDependencies": {
+    "serve": "^14.2.3"
   }
 }
